@@ -5,16 +5,21 @@ function App() {
   const [number, setNumber] = useState(''); // To store the current input number
   const [numbersList, setNumbersList] = useState([]); // To store the list of numbers
 
+  // Base URL from the .env file
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
+
   // Function to handle submitting the number to backend
   const handleSubmitNumber = async () => {
     try {
-      // Assuming you have a backend endpoint '/submitNumber' to POST the number
-      await fetch('/submitNumber', {
+      await fetch(`${BASE_URL}/submit/`, {
+        mode:'cors',
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ number }),
+        body: JSON.stringify({
+          "value": number
+        }),
       });
 
       setNumber(''); // Clear the input after submitting
@@ -26,9 +31,12 @@ function App() {
   // Function to fetch all submitted numbers from backend
   const handleFetchNumbers = async () => {
     try {
-      const response = await fetch('/getNumbers');
+      const response = await fetch(
+        `${BASE_URL}/readings/`,
+        {mode:'cors'}
+        );
       const data = await response.json();
-      setNumbersList(data.numbers || []); // Assuming the backend returns an object with a 'numbers' property
+      setNumbersList(data || []); 
     } catch (err) {
       console.error('Error fetching numbers:', err);
     }
@@ -49,8 +57,10 @@ function App() {
         </div>
         <button onClick={handleFetchNumbers}>Get population count over time</button>
         <ul>
-          {numbersList.map((num, idx) => (
-            <li key={idx}>{num}</li>
+          {numbersList.map((entry, idx) => (
+            <li key={idx}>
+              Value: {entry.value}, Timestamp: {entry.timestamp}
+            </li>
           ))}
         </ul>
       </div>
