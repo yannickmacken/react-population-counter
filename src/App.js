@@ -56,13 +56,14 @@ function App() {
           <button onClick={handleSubmitNumber}>Submit count</button>
         </div>
         <button onClick={handleFetchNumbers}>Get population count over time</button>
-        <ul>
+        <div className="numbers-list">
           {numbersList.map((entry, idx) => (
-            <li key={idx}>
-              Value: {entry.value}, Timestamp: {entry.timestamp}
-            </li>
+            <div key={idx} className="number-entry">
+              <span className="value">Value: {entry.value}</span>
+              <span className="timestamp">{new Date(entry.timestamp).toLocaleString()}</span>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     </div>
   );

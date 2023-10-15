@@ -16,6 +16,38 @@
   max-width: 500px;
 }
 
+.numbers-list {
+  padding: 20px;
+  max-width: 400px;
+  margin: 20px auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.number-entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 10px 0;
+  margin: 0;
+}
+
+.number-entry:last-child {
+  border-bottom: none;
+}
+
+.number-entry .value {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.number-entry .timestamp {
+  color: #888;
+  font-size: 0.8rem;
+}
+
 input, button {
   padding: 10px 15px;
   margin: 0.5rem 0;
