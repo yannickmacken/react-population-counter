@@ -10,6 +10,14 @@ function App() {
 
   // Function to handle submitting the number to backend
   const handleSubmitNumber = async () => {
+    
+    // Handle invalid inputs
+    if (number < 0 || number > 20) {
+      alert('Please enter a number between 0 and 20.');
+      setNumber("");
+      return;
+    }
+
     try {
       await fetch(`${BASE_URL}/submit/`, {
         mode: "cors",
@@ -53,10 +61,10 @@ function App() {
           <button onClick={handleSubmitNumber}>Submit count</button>
         </div>
         <button onClick={handleFetchNumbers}>
-          Get population count over time
+          Get population count factorials
         </button>
         {numbersList.length > 0 && (
-          <div className="numbers-list">
+          <div className="numbers-list" data-testid='numbers-list'>
             {numbersList.map((entry, idx) => (
               <div key={idx} className="number-entry">
                 <span className="factorial">{entry.factorial || "..."}</span>
