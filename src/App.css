@@ -18,8 +18,7 @@
 
 .numbers-list {
   padding: 20px;
-  max-width: 400px;
-  margin: 20px auto;
+  margin: 10px auto;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
@@ -32,20 +31,38 @@
   border-bottom: 1px solid #e5e5e5;
   padding: 10px 0;
   margin: 0;
+  display: flex;
+  width: 100%;  /* optional: make sure it takes the full width of its parent */
+  justify-content: space-between;  /* optional: space out the spans equally */
 }
 
 .number-entry:last-child {
   border-bottom: none;
 }
 
-.number-entry .value {
+.number-entry .factorial {
   font-weight: bold;
   font-size: 1.2rem;
+  flex: 2;
+}
+
+.number-entry .value {
+  color: #888;
+  font-size: 0.8rem;
+  flex: 1;
 }
 
 .number-entry .timestamp {
   color: #888;
   font-size: 0.8rem;
+  flex: 1;
+}
+
+.number-entry .value,
+.number-entry .factorial,
+.number-entry .timestamp {
+  text-align: left;  /* optional: center the text inside each span */
+  padding: 5px;  /* optional: give some spacing inside each span */
 }
 
 input, button {

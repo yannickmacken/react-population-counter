@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
 
 function App() {
-  const [number, setNumber] = useState(''); // To store the current input number
+  const [number, setNumber] = useState(""); // To store the current input number
   const [numbersList, setNumbersList] = useState([]); // To store the list of numbers
 
   // Base URL from the .env file
@@ -12,33 +12,30 @@ function App() {
   const handleSubmitNumber = async () => {
     try {
       await fetch(`${BASE_URL}/submit/`, {
-        mode:'cors',
-        method: 'POST',
+        mode: "cors",
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          "value": number
+          value: number,
         }),
       });
 
-      setNumber(''); // Clear the input after submitting
+      setNumber(""); // Clear the input after submitting
     } catch (err) {
-      console.error('Error submitting number:', err);
+      console.error("Error submitting number:", err);
     }
   };
 
   // Function to fetch all submitted numbers from backend
   const handleFetchNumbers = async () => {
     try {
-      const response = await fetch(
-        `${BASE_URL}/readings/`,
-        {mode:'cors'}
-        );
+      const response = await fetch(`${BASE_URL}/readings/`, { mode: "cors" });
       const data = await response.json();
-      setNumbersList(data || []); 
+      setNumbersList(data || []);
     } catch (err) {
-      console.error('Error fetching numbers:', err);
+      console.error("Error fetching numbers:", err);
     }
   };
 
@@ -55,15 +52,22 @@ function App() {
           />
           <button onClick={handleSubmitNumber}>Submit count</button>
         </div>
-        <button onClick={handleFetchNumbers}>Get population count over time</button>
-        <div className="numbers-list">
-          {numbersList.map((entry, idx) => (
-            <div key={idx} className="number-entry">
-              <span className="value">Value: {entry.value}</span>
-              <span className="timestamp">{new Date(entry.timestamp).toLocaleString()}</span>
-            </div>
-          ))}
-        </div>
+        <button onClick={handleFetchNumbers}>
+          Get population count over time
+        </button>
+        {numbersList.length > 0 && (
+          <div className="numbers-list">
+            {numbersList.map((entry, idx) => (
+              <div key={idx} className="number-entry">
+                <span className="factorial">{entry.factorial || "..."}</span>
+                <span className="value">Value: {entry.value}</span>
+                <span className="timestamp">
+                  {new Date(entry.timestamp).toLocaleString()}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
